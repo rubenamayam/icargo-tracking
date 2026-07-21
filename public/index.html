@@ -6,25 +6,17 @@
 <title>El Casillero de USA — Seguimiento</title>
 <style>
 :root {
-  --azul: #1560BD;
-  --azul-dark: #0e4a94;
-  --azul-light: #e8f0fb;
-  --rojo: #E63329;
-  --rojo-dark: #B71C1C;
-  --rojo-light: #fdecea;
-  --amarillo: #F5A623;
-  --amarillo-light: #fef6e7;
-  --verde: #1a7a3f;
-  --verde-light: #e6f4ed;
-  --gris: #f5f5f3;
-  --gris2: #e8e8e6;
-  --texto: #1a1a1a;
-  --texto2: #666;
-  --blanco: #ffffff;
-  --radio: 12px;
+  --azul: #1560BD; --azul-dark: #0e4a94; --azul-light: #e8f0fb;
+  --rojo: #E63329; --rojo-dark: #B71C1C; --rojo-light: #fdecea;
+  --amarillo: #F5A623; --amarillo-light: #fef6e7;
+  --verde: #1a7a3f; --verde-light: #e6f4ed;
+  --gris: #f5f5f3; --gris2: #e8e8e6;
+  --texto: #1a1a1a; --texto2: #666; --radio: 12px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--gris); color: var(--texto); min-height: 100vh; }
+
+/* HEADER */
 .header { background: var(--azul); color: white; padding: 16px 20px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 .header-logo { width: 44px; height: 44px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
 .header-title { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
@@ -33,20 +25,38 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .stat { text-align: center; }
 .stat-num { font-size: 20px; font-weight: 700; line-height: 1; }
 .stat-label { font-size: 10px; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.5px; }
-.container { max-width: 680px; margin: 0 auto; padding: 20px 16px 40px; }
+
+/* TABS */
+.tabs { background: white; border-bottom: 1px solid var(--gris2); display: flex; gap: 0; position: sticky; top: 76px; z-index: 99; }
+.tab { padding: 12px 24px; font-size: 14px; font-weight: 600; color: var(--texto2); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.15s; }
+.tab.active { color: var(--azul); border-bottom-color: var(--azul); }
+.tab:hover { color: var(--azul); background: var(--azul-light); }
+
+/* CONTAINER */
+.container { max-width: 720px; margin: 0 auto; padding: 20px 16px 40px; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ADD FORM */
 .add-card { background: white; border-radius: var(--radio); border: 1px solid var(--gris2); padding: 16px; margin-bottom: 20px; }
 .add-title { font-size: 13px; font-weight: 600; color: var(--texto2); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 12px; }
 .add-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.add-row input[type=text] { flex: 1; min-width: 140px; padding: 10px 14px; border: 1.5px solid var(--gris2); border-radius: 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; outline: none; transition: border-color 0.15s; }
-.add-row input[type=text]:focus { border-color: var(--azul); }
+.add-row input[type=text], .add-row input[type=number] { flex: 1; min-width: 120px; padding: 10px 14px; border: 1.5px solid var(--gris2); border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.15s; }
+.add-row input[type=text] { text-transform: uppercase; letter-spacing: 0.5px; }
 .add-row input[type=text]::placeholder { text-transform: none; letter-spacing: 0; color: #aaa; }
+.add-row input[type=number]::placeholder { color: #aaa; }
+.add-row input[type=text]:focus, .add-row input[type=number]:focus { border-color: var(--azul); }
 .add-row input[type=date] { padding: 10px 12px; border: 1.5px solid var(--gris2); border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.15s; color: var(--texto); }
 .add-row input[type=date]:focus { border-color: var(--azul); }
+.add-row-2 { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.field-hint { font-size: 11px; color: var(--texto2); margin-top: 6px; }
 .btn-add { background: var(--azul); color: white; border: none; border-radius: 8px; padding: 0 20px; height: 42px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 6px; transition: background 0.15s; }
 .btn-add:hover { background: var(--azul-dark); }
 .btn-add:disabled { opacity: 0.5; cursor: not-allowed; }
 .error-msg { background: var(--rojo-light); color: var(--rojo); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 16px; border-left: 3px solid var(--rojo); display: none; }
-.resumen { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 20px; }
+
+/* RESUMEN */
+.resumen { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
 .res-card { background: white; border-radius: 10px; padding: 12px; text-align: center; border: 1px solid var(--gris2); }
 .res-num { font-size: 22px; font-weight: 700; line-height: 1; }
 .res-label { font-size: 11px; color: var(--texto2); margin-top: 3px; }
@@ -54,6 +64,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .res-card.demoradas .res-num { color: var(--rojo); }
 .res-card.entregadas .res-num { color: var(--verde); }
 .res-card.retenidas .res-num { color: var(--rojo-dark); }
+
+/* GUIA CARDS */
 .fecha-grupo { margin-bottom: 24px; }
 .fecha-label { font-size: 12px; font-weight: 600; color: var(--texto2); text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 10px; padding-left: 2px; display: flex; align-items: center; gap: 8px; }
 .fecha-line { flex: 1; height: 1px; background: var(--gris2); }
@@ -79,11 +91,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .dias-entregado { background: var(--gris); color: var(--texto2); }
 .alerta-chip { background: var(--amarillo-light); color: #8a5c00; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
 .retenida-chip { background: var(--rojo-dark); color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px; animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.7} }
 .guia-detalle { border-top: 1px solid var(--gris2); padding: 16px; display: none; }
 .guia-detalle.visible { display: block; }
-.progress-bar { width: 100%; height: 5px; background: var(--gris2); border-radius: 3px; overflow: hidden; margin-bottom: 16px; }
-.progress-fill { height: 100%; background: var(--azul); border-radius: 3px; transition: width 0.4s; }
+/* BARRA DE ETAPAS */
+.etapas-barra { width: 100%; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
+.etapas-track { display: flex; align-items: center; min-width: 480px; }
+.etapa-step { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+.etapa-icono { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; border: 2px solid var(--gris2); background: white; z-index: 1; transition: all 0.3s; }
+.etapa-icono.completada { background: var(--verde-light); border-color: var(--verde); }
+.etapa-icono.activa { background: var(--azul-light); border-color: var(--azul); box-shadow: 0 0 0 3px rgba(21,96,189,0.2); }
+.etapa-nombre { font-size: 9px; color: var(--texto2); margin-top: 4px; text-align: center; max-width: 52px; line-height: 1.2; }
+.etapa-nombre.completada { color: var(--verde); }
+.etapa-nombre.activa { color: var(--azul); font-weight: 700; }
+.etapa-linea { flex: 1; height: 2px; background: var(--gris2); margin: 0 -1px; margin-bottom: 18px; transition: background 0.3s; }
+.etapa-linea.completada { background: var(--verde); }
 .detalle-actions { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
 .btn-sm { background: white; color: var(--texto); border: 1px solid var(--gris2); border-radius: 7px; padding: 6px 12px; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background 0.15s; white-space: nowrap; }
 .btn-sm:hover { background: var(--gris); }
@@ -113,12 +135,49 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .empty-state { text-align: center; padding: 40px 20px; color: var(--texto2); }
 .empty-icon { font-size: 48px; margin-bottom: 12px; }
 .empty-text { font-size: 15px; line-height: 1.6; }
+
+/* EDIT PESO/COSTO */
+.guia-meta { font-size: 11px; color: var(--texto2); margin-top: 4px; display: flex; gap: 10px; flex-wrap: wrap; }
+.meta-edit { display: flex; gap: 6px; margin-bottom: 12px; align-items: center; flex-wrap: wrap; }
+.meta-input { padding: 6px 10px; border: 1.5px solid var(--gris2); border-radius: 7px; font-size: 13px; width: 110px; outline: none; }
+.meta-input:focus { border-color: var(--azul); }
+
+/* DASHBOARD */
+.dash-section { margin-bottom: 28px; }
+.dash-title { font-size: 14px; font-weight: 700; color: var(--texto); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.dash-card { background: white; border-radius: 10px; padding: 14px; border: 1px solid var(--gris2); }
+.dash-card-title { font-size: 11px; color: var(--texto2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.dash-card-value { font-size: 22px; font-weight: 700; color: var(--azul); line-height: 1; }
+.dash-card-sub { font-size: 11px; color: var(--texto2); margin-top: 4px; }
+.dash-card.verde .dash-card-value { color: var(--verde); }
+.dash-card.rojo .dash-card-value { color: var(--rojo); }
+.dash-card.amarillo .dash-card-value { color: #8a5c00; }
+.trm-info { font-size: 12px; color: var(--texto2); background: white; border: 1px solid var(--gris2); border-radius: 8px; padding: 8px 12px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.mes-barra-container { background: white; border-radius: var(--radio); border: 1px solid var(--gris2); padding: 16px; margin-bottom: 16px; }
+.mes-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.mes-label { font-size: 12px; color: var(--texto2); width: 60px; flex-shrink: 0; }
+.mes-barra-bg { flex: 1; height: 20px; background: var(--gris2); border-radius: 4px; overflow: hidden; }
+.mes-barra-fill { height: 100%; background: var(--azul); border-radius: 4px; transition: width 0.4s; }
+.mes-valor { font-size: 12px; font-weight: 600; width: 30px; text-align: right; }
+.etapa-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gris2); }
+.etapa-row:last-child { border-bottom: none; }
+.etapa-nombre { font-size: 13px; color: var(--texto); }
+.etapa-dias { font-size: 14px; font-weight: 700; color: var(--azul); }
+.etapa-sub { font-size: 11px; color: var(--texto2); }
+.record-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--gris2); }
+.record-row:last-child { border-bottom: none; }
+.record-label { font-size: 13px; color: var(--texto); }
+.record-value { font-size: 13px; font-weight: 700; color: var(--azul); }
+.trm-badge { background: var(--verde-light); color: var(--verde); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+
 @media (max-width: 480px) {
   .resumen { grid-template-columns: repeat(2, 1fr); }
   .header-stats { gap: 10px; }
   .stat-num { font-size: 16px; }
   .add-row { flex-direction: column; }
   .add-row input, .btn-add { width: 100%; }
+  .tab { padding: 10px 14px; font-size: 13px; }
 }
 </style>
 </head>
@@ -137,57 +196,149 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
   </div>
 </div>
 
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('guias')">📦 Guías</div>
+  <div class="tab" onclick="switchTab('dashboard')">📊 Dashboard</div>
+</div>
+
 <div class="container">
-  <div class="add-card">
-    <div class="add-title">Agregar nueva guía</div>
-    <div class="add-row">
-      <input type="text" id="inputCodigo" placeholder="Ej: FLO5590039182" maxlength="30" />
-      <input type="date" id="inputFecha" />
-      <button class="btn-add" id="btnAgregar" onclick="agregarGuia()">+ Agregar</button>
+
+  <!-- TAB GUIAS -->
+  <div class="tab-content active" id="tab-guias">
+    <div class="add-card">
+      <div class="add-title">Agregar nueva guía</div>
+      <div class="add-row">
+        <input type="text" id="inputCodigo" placeholder="Ej: FLO5590039182" maxlength="30" />
+        <input type="date" id="inputFecha" />
+      </div>
+      <div class="add-row-2">
+        <input type="number" id="inputPeso" placeholder="Peso (lbs)" min="0" step="0.1" style="max-width:140px;" />
+        <input type="number" id="inputCosto" placeholder="Costo iCargo ($)" min="0" step="0.01" style="max-width:160px;" />
+        <button class="btn-add" id="btnAgregar" onclick="agregarGuia()">+ Agregar</button>
+      </div>
+      <div class="field-hint">💡 Peso y costo son opcionales — puedes completarlos después</div>
+    </div>
+
+    <div class="error-msg" id="errorMsg"></div>
+
+    <div class="resumen">
+      <div class="res-card activas"><div class="res-num" id="rActivas">0</div><div class="res-label">Activas</div></div>
+      <div class="res-card demoradas"><div class="res-num" id="rDemoradas">0</div><div class="res-label">Demoradas</div></div>
+      <div class="res-card retenidas"><div class="res-num" id="rRetenidas">0</div><div class="res-label">Retenidas</div></div>
+      <div class="res-card entregadas"><div class="res-num" id="rEntregadas">0</div><div class="res-label">Entregadas</div></div>
+      <div class="res-card"><div class="res-num" id="rPromedio">—</div><div class="res-label">Días prom.</div></div>
+      <div class="res-card"><div class="res-num" id="rFLO">0</div><div class="res-label">FLO</div></div>
+      <div class="res-card"><div class="res-num" id="rBUC">0</div><div class="res-label">BUC</div></div>
+      <div class="res-card"><div class="res-num" id="rSemana">0</div><div class="res-label">Esta semana</div></div>
+    </div>
+
+    <div id="listaGuias"></div>
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">🚚</div>
+      <div class="empty-text">No hay guías registradas.<br>Agrega una arriba para empezar.</div>
     </div>
   </div>
 
-  <div class="error-msg" id="errorMsg"></div>
+  <!-- TAB DASHBOARD -->
+  <div class="tab-content" id="tab-dashboard">
+    <div class="trm-info" id="trmInfo">💱 Cargando TRM...</div>
 
-  <div class="resumen">
-    <div class="res-card activas"><div class="res-num" id="rActivas">0</div><div class="res-label">Activas</div></div>
-    <div class="res-card demoradas"><div class="res-num" id="rDemoradas">0</div><div class="res-label">Demoradas</div></div>
-    <div class="res-card retenidas"><div class="res-num" id="rRetenidas">0</div><div class="res-label">Retenidas</div></div>
-    <div class="res-card entregadas"><div class="res-num" id="rEntregadas">0</div><div class="res-label">Entregadas</div></div>
-    <div class="res-card"><div class="res-num" id="rPromedio">—</div><div class="res-label">Días prom.</div></div>
-    <div class="res-card"><div class="res-num" id="rFLO">0</div><div class="res-label">FLO</div></div>
-    <div class="res-card"><div class="res-num" id="rBUC">0</div><div class="res-label">BUC</div></div>
-    <div class="res-card"><div class="res-num" id="rSemana">0</div><div class="res-label">Esta semana</div></div>
+    <div class="dash-section">
+      <div class="dash-title">💰 Resumen financiero</div>
+      <div class="dash-grid">
+        <div class="dash-card verde">
+          <div class="dash-card-title">Total pagado iCargo</div>
+          <div class="dash-card-value" id="dTotalUSD">—</div>
+          <div class="dash-card-sub" id="dTotalCOP">— COP</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">Costo promedio/caja</div>
+          <div class="dash-card-value" id="dPromCaja">—</div>
+          <div class="dash-card-sub">USD por envío</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">Costo promedio/libra</div>
+          <div class="dash-card-value" id="dPromLb">—</div>
+          <div class="dash-card-sub">USD por lb</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">Peso total enviado</div>
+          <div class="dash-card-value" id="dPesoTotal">—</div>
+          <div class="dash-card-sub">libras</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-section">
+      <div class="dash-title">⏱️ Tiempos promedio por etapa</div>
+      <div class="mes-barra-container" id="etapasContainer">
+        <p style="color:var(--texto2);font-size:13px;">Calculando con guías entregadas...</p>
+      </div>
+    </div>
+
+    <div class="dash-section">
+      <div class="dash-title">📅 Envíos por mes</div>
+      <div class="mes-barra-container" id="mesBarrasContainer">
+        <p style="color:var(--texto2);font-size:13px;">Cargando...</p>
+      </div>
+    </div>
+
+    <div class="dash-section">
+      <div class="dash-title">💵 Gasto por mes (iCargo)</div>
+      <div class="mes-barra-container" id="mesGastoContainer">
+        <p style="color:var(--texto2);font-size:13px;">Cargando...</p>
+      </div>
+    </div>
+
+    <div class="dash-section">
+      <div class="dash-title">🏆 Récords</div>
+      <div class="mes-barra-container" id="recordsContainer">
+        <p style="color:var(--texto2);font-size:13px;">Cargando...</p>
+      </div>
+    </div>
+
+    <div class="dash-section">
+      <div class="dash-title">📦 Distribución por destino</div>
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="dash-card-title">🔵 Hacienda Cañaveral (FLO)</div>
+          <div class="dash-card-value" id="dFLO">0</div>
+          <div class="dash-card-sub" id="dFLOpct">—</div>
+        </div>
+        <div class="dash-card amarillo">
+          <div class="dash-card-title">🟡 Mirador del Cacique (BUC)</div>
+          <div class="dash-card-value" id="dBUC">0</div>
+          <div class="dash-card-sub" id="dBUCpct">—</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div id="listaGuias"></div>
-
-  <div class="empty-state" id="emptyState">
-    <div class="empty-icon">🚚</div>
-    <div class="empty-text">No hay guías registradas.<br>Agrega una arriba para empezar.</div>
-  </div>
 </div>
 
 <script>
 const DESTINOS = { FLO: 'Hacienda Cañaveral', BUC: 'Mirador del Cacique' };
 const ALERTAS = ['reprogramado','demora'];
 const RETENCION = ['retenida','retenido','reajuste'];
-const STATUS_LABEL = {
-  15:'Guía creada', 18:'A recibir Coordinadora', 19:'En terminal origen',
-  21:'En transporte', 23:'En terminal destino', 25:'Consolidada',
-  27:'En reparto', 35:'Aeropuerto Bogotá', 37:'Aeropuerto Miami', 
-  43:'Asignado transportadora', 50:'Recibido Coordinadora', 
-  162:'Bodega Bogotá', 999:'Entregada'
-};
+const MESES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
 let guias = [];
+let trmActual = null;
 
+// ── TABS ──
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.tab[onclick="switchTab('${name}')"]`).classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+  if(name==='dashboard') renderDashboard();
+}
+
+// ── HELPERS ──
 function getDestino(code) { return DESTINOS[code.substring(0,3).toUpperCase()] || null; }
 function getDestinoClass(code) {
   const p = code.substring(0,3).toUpperCase();
-  if(p==='FLO') return 'dest-flo';
-  if(p==='BUC') return 'dest-buc';
-  return 'dest-otro';
+  return p==='FLO'?'dest-flo':p==='BUC'?'dest-buc':'dest-otro';
 }
 function formatDate(s) {
   if(!s||s.startsWith('0001')) return null;
@@ -196,222 +347,221 @@ function formatDate(s) {
 function formatFechaEnvio(s) {
   if(!s) return '—';
   const [y,m,d] = s.split('-');
-  const names = ['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  return `${parseInt(d)} ${names[parseInt(m)]} ${y}`;
+  return `${parseInt(d)} ${MESES[parseInt(m)-1]} ${y}`;
 }
-
 function esEntregada(g) {
   if(!g.items||!g.items.length) return false;
-  // Buscar "entregada" en CUALQUIER evento del timeline
-  return g.items.some(item => {
-    const desc = (item._vstDescription||'').toLowerCase();
-    const det = (item._vstDetail||'').toLowerCase();
-    return desc.includes('entregada') || det.includes('entregada');
+  return g.items.some(i=>{
+    const d=(i._vstDescription||'').toLowerCase();
+    const t=(i._vstDetail||'').toLowerCase();
+    return d.includes('entregada')||t.includes('entregada');
   });
 }
-
 function getFechaEntrega(g) {
   if(!esEntregada(g)) return null;
-  const evento = g.items.find(item => {
-    const desc = (item._vstDescription||'').toLowerCase();
-    const det = (item._vstDetail||'').toLowerCase();
-    return desc.includes('entregada') || det.includes('entregada');
-  });
-  return evento ? new Date(evento._vstRealDate) : null;
+  const ev = g.items.find(i=>(i._vstDescription||'').toLowerCase().includes('entregada')||(i._vstDetail||'').toLowerCase().includes('entregada'));
+  return ev ? new Date(ev._vstRealDate) : null;
 }
-
 function diasEnTransito(g) {
   const inicio = g.fechaEnvio ? new Date(g.fechaEnvio) : new Date(g.addedAt);
-  
-  // Si está entregada, calcular hasta la fecha de entrega
   if(esEntregada(g)) {
-    const fechaEntrega = getFechaEntrega(g);
-    if(fechaEntrega && !isNaN(fechaEntrega.getTime())) {
-      return Math.floor((fechaEntrega.getTime() - inicio.getTime()) / 86400000);
-    }
+    const fe = getFechaEntrega(g);
+    if(fe&&!isNaN(fe.getTime())) return Math.floor((fe.getTime()-inicio.getTime())/86400000);
   }
-  
-  // Si no está entregada, calcular hasta hoy
-  return Math.floor((Date.now() - inicio.getTime()) / 86400000);
+  return Math.floor((Date.now()-inicio.getTime())/86400000);
 }
-
 function esRetenida(items) {
   if(!items||!items.length) return false;
-  const t = ((items[0]._vstDescription||'')+(items[0]._vstDetail||'')).toLowerCase();
-  return RETENCION.some(a => t.includes(a));
+  const t=((items[0]._vstDescription||'')+(items[0]._vstDetail||'')).toLowerCase();
+  return RETENCION.some(a=>t.includes(a));
 }
-
 function esAlerta(items) {
   if(!items||!items.length) return false;
-  const t = ((items[0]._vstDescription||'')+(items[0]._vstDetail||'')).toLowerCase();
-  return ALERTAS.some(a => t.includes(a));
+  const t=((items[0]._vstDescription||'')+(items[0]._vstDetail||'')).toLowerCase();
+  return ALERTAS.some(a=>t.includes(a));
 }
-
 function diasBadge(g) {
-  if(esEntregada(g)) return {cls:'dias-entregado', txt:'Entregada ✓'};
-  const d = diasEnTransito(g);
-  if(d<=8) return {cls:'dias-ok', txt:`${d} días`};
-  if(d<=10) return {cls:'dias-warn', txt:`${d} días ⚠️`};
-  return {cls:'dias-late', txt:`${d} días 🔴`};
+  if(esEntregada(g)) return {cls:'dias-entregado',txt:'Entregada ✓'};
+  const d=diasEnTransito(g);
+  return d<=8?{cls:'dias-ok',txt:`${d} días`}:d<=10?{cls:'dias-warn',txt:`${d} días ⚠️`}:{cls:'dias-late',txt:`${d} días 🔴`};
 }
-
 function showError(msg) {
-  const e = document.getElementById('errorMsg');
-  e.textContent = msg; e.style.display = 'block';
-  setTimeout(()=>e.style.display='none', 4000);
+  const e=document.getElementById('errorMsg');
+  e.textContent=msg; e.style.display='block';
+  setTimeout(()=>e.style.display='none',4000);
 }
+function fmtUSD(v) { return '$'+v.toFixed(2); }
+function fmtCOP(v) { return new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(v); }
 
-async function apiGet() {
-  const r = await fetch('/api/guias'); 
-  return r.json();
-}
+// ── API ──
+async function apiGet() { const r=await fetch('/api/guias'); return r.json(); }
 async function apiPost(body) {
-  const r = await fetch('/api/guias',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const r=await fetch('/api/guias',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   return r.json();
 }
 async function fetchTracking(code) {
-  const r = await fetch(`/api/proxy?guia=${encodeURIComponent(code)}`);
+  const r=await fetch(`/api/proxy?guia=${encodeURIComponent(code)}`);
   if(!r.ok) throw new Error('Error');
   return r.json();
 }
 
+// ── TRM ──
+async function fetchTRM() {
+  try {
+    const r = await fetch('https://v6.exchangerate-api.com/v6/97c3dc5c33f3555d03e43bcc/latest/USD');
+    const d = await r.json();
+    if(d&&d.conversion_rates&&d.conversion_rates.COP) {
+      trmActual = d.conversion_rates.COP * 1.03;
+      document.getElementById('trmInfo').innerHTML = `💱 TRM del día: <strong>${fmtCOP(trmActual)}</strong> por USD <span class="trm-badge">+3% incluido</span>`;
+    }
+  } catch(e) {
+    // fallback TRM
+    trmActual = 4200;
+    document.getElementById('trmInfo').innerHTML = `💱 TRM estimada: <strong>${fmtCOP(trmActual)}</strong> por USD`;
+  }
+}
+
+// ── CARGAR ──
 async function cargarGuias() {
-  try { guias = await apiGet(); } catch(e) { guias = []; }
+  try { guias=await apiGet(); } catch(e) { guias=[]; }
   renderTodo();
 }
 
+// ── AGREGAR ──
 async function agregarGuia() {
-  const code = document.getElementById('inputCodigo').value.trim().toUpperCase();
-  const fecha = document.getElementById('inputFecha').value;
-  if(!code) { showError('Ingresa el número de guía.'); return; }
-  if(!fecha) { showError('Ingresa la fecha de envío.'); return; }
-  if(guias.find(g=>g.code===code)) { showError('Esta guía ya está en la lista.'); return; }
-  
-  const btn = document.getElementById('btnAgregar');
+  const code=document.getElementById('inputCodigo').value.trim().toUpperCase();
+  const fecha=document.getElementById('inputFecha').value;
+  const peso=parseFloat(document.getElementById('inputPeso').value)||null;
+  const costo=parseFloat(document.getElementById('inputCosto').value)||null;
+  if(!code){showError('Ingresa el número de guía.');return;}
+  if(!fecha){showError('Ingresa la fecha de envío.');return;}
+  if(guias.find(g=>g.code===code)){showError('Esta guía ya está en la lista.');return;}
+  const btn=document.getElementById('btnAgregar');
   btn.disabled=true; btn.textContent='Buscando...';
   try {
-    const data = await fetchTracking(code);
-    if(!data.items||!data.items.length) { showError('Guía no encontrada. Verifica el número.'); return; }
-    const l = data.items[0];
-    const guia = { code, fechaEnvio: fecha, addedAt: new Date().toISOString(),
-      lastCheck: new Date().toISOString(), lastStatus: l._vstLastDetail,
-      lastStatusId: l._vstTypeStausId, items: data.items, archived: false, note: '' };
-    await apiPost({action:'add', guia});
+    const data=await fetchTracking(code);
+    if(!data.items||!data.items.length){showError('Guía no encontrada. Verifica el número.');return;}
+    const l=data.items[0];
+    const guia={code,fechaEnvio:fecha,addedAt:new Date().toISOString(),
+      lastCheck:new Date().toISOString(),lastStatus:l._vstLastDetail,
+      lastStatusId:l._vstTypeStausId,items:data.items,archived:false,note:'',
+      peso:peso,costo:costo};
+    await apiPost({action:'add',guia});
     guias.unshift(guia);
     document.getElementById('inputCodigo').value='';
+    document.getElementById('inputPeso').value='';
+    document.getElementById('inputCosto').value='';
     renderTodo();
-  } catch(e) { showError('Error al consultar. Verifica tu conexión.'); }
-  finally { btn.disabled=false; btn.textContent='+ Agregar'; }
+  } catch(e){showError('Error al consultar. Verifica tu conexión.');}
+  finally{btn.disabled=false;btn.textContent='+ Agregar';}
 }
 
+// ── ACTUALIZAR ──
 async function actualizarGuia(code) {
-  const guia = guias.find(g=>g.code===code);
+  const guia=guias.find(g=>g.code===code);
   if(!guia) return;
-  const btn = document.getElementById('btn-refresh-'+code);
-  if(btn) { btn.disabled=true; btn.textContent='Actualizando...'; }
+  const btn=document.getElementById('btn-refresh-'+code);
+  if(btn){btn.disabled=true;btn.textContent='Actualizando...';}
   try {
-    const data = await fetchTracking(code);
+    const data=await fetchTracking(code);
     if(data.items&&data.items.length) {
-      const l = data.items[0];
-      Object.assign(guia,{lastCheck:new Date().toISOString(),lastStatus:l._vstLastDetail,
-        lastStatusId:l._vstTypeStausId,items:data.items});
-      await apiPost({action:'update', guia});
+      const l=data.items[0];
+      Object.assign(guia,{lastCheck:new Date().toISOString(),lastStatus:l._vstLastDetail,lastStatusId:l._vstTypeStausId,items:data.items});
+      await apiPost({action:'update',guia});
       renderTodo();
-      setTimeout(()=>{const d=document.getElementById('det-'+code); if(d)d.classList.add('visible');
-        const c=document.getElementById('card-'+code); if(c)c.classList.add('expandida');},50);
+      setTimeout(()=>{const d=document.getElementById('det-'+code);if(d)d.classList.add('visible');const c=document.getElementById('card-'+code);if(c)c.classList.add('expandida');},50);
     }
-  } catch(e) { showError('No se pudo actualizar.'); }
-  finally { if(btn){btn.disabled=false; btn.textContent='↻ Actualizar';} }
+  } catch(e){showError('No se pudo actualizar.');}
+  finally{if(btn){btn.disabled=false;btn.textContent='↻ Actualizar';}}
+}
+
+// ── GUARDAR PESO/COSTO ──
+async function guardarMeta(code) {
+  const pesoEl=document.getElementById('meta-peso-'+code);
+  const costoEl=document.getElementById('meta-costo-'+code);
+  const guia=guias.find(g=>g.code===code);
+  if(!guia) return;
+  guia.peso=parseFloat(pesoEl.value)||null;
+  guia.costo=parseFloat(costoEl.value)||null;
+  await apiPost({action:'update',guia});
+  renderTodo();
+  setTimeout(()=>{const d=document.getElementById('det-'+code);if(d)d.classList.add('visible');const c=document.getElementById('card-'+code);if(c)c.classList.add('expandida');},50);
 }
 
 async function archivarGuia(code) {
-  const guia = guias.find(g=>g.code===code);
+  const guia=guias.find(g=>g.code===code);
   if(!guia) return;
-  guia.archived = !guia.archived;
-  await apiPost({action:'archive', code});
+  guia.archived=!guia.archived;
+  await apiPost({action:'archive',code});
   renderTodo();
 }
-
 async function eliminarGuia(code) {
   if(!confirm('¿Eliminar esta guía?')) return;
-  guias = guias.filter(g=>g.code!==code);
-  await apiPost({action:'delete', code});
+  guias=guias.filter(g=>g.code!==code);
+  await apiPost({action:'delete',code});
   renderTodo();
 }
-
 function toggleNota(code) {
-  const area = document.getElementById('nota-area-'+code);
-  if(area) area.classList.toggle('visible');
+  const a=document.getElementById('nota-area-'+code);
+  if(a) a.classList.toggle('visible');
 }
-
 async function guardarNota(code) {
-  const area = document.getElementById('nota-area-'+code);
-  if(!area) return;
-  const note = area.value.trim();
-  const guia = guias.find(g=>g.code===code);
-  if(guia) guia.note = note;
-  await apiPost({action:'note', code, note});
-  area.classList.remove('visible');
-  const saved = document.getElementById('nota-saved-'+code);
-  if(saved) { saved.textContent = note ? '📝 '+note : ''; saved.classList.toggle('visible', !!note); }
+  const a=document.getElementById('nota-area-'+code);
+  if(!a) return;
+  const note=a.value.trim();
+  const guia=guias.find(g=>g.code===code);
+  if(guia) guia.note=note;
+  await apiPost({action:'note',code,note});
+  a.classList.remove('visible');
+  const s=document.getElementById('nota-saved-'+code);
+  if(s){s.textContent=note?'📝 '+note:'';s.classList.toggle('visible',!!note);}
 }
-
 function toggleDetalle(code) {
-  const det = document.getElementById('det-'+code);
-  const card = document.getElementById('card-'+code);
+  const det=document.getElementById('det-'+code);
+  const card=document.getElementById('card-'+code);
   if(!det||!card) return;
-  const open = det.classList.contains('visible');
+  const open=det.classList.contains('visible');
   document.querySelectorAll('.guia-detalle.visible').forEach(d=>d.classList.remove('visible'));
   document.querySelectorAll('.guia-card.expandida').forEach(c=>c.classList.remove('expandida'));
-  if(!open) { det.classList.add('visible'); card.classList.add('expandida'); }
+  if(!open){det.classList.add('visible');card.classList.add('expandida');}
 }
 
+// ── RENDER GUÍAS ──
 function renderTodo() {
-  const activas = guias.filter(g=>!esEntregada(g)&&!g.archived);
-  const demoradas = activas.filter(g=>diasEnTransito(g)>8);
-  const retenidas = activas.filter(g=>esRetenida(g.items));
-  const entregadas = guias.filter(g=>esEntregada(g));
-  
-  // Calcular promedio SOLO de guías entregadas
-  const tiempos = entregadas.map(g=>diasEnTransito(g)).filter(d=>d>0 && d<100); // Filtrar valores raros
-  const prom = tiempos.length ? Math.round(tiempos.reduce((a,b)=>a+b,0)/tiempos.length) : null;
-  
-  // Contar por destino
-  const flo = guias.filter(g=>g.code.toUpperCase().startsWith('FLO')&&!g.archived).length;
-  const buc = guias.filter(g=>g.code.toUpperCase().startsWith('BUC')&&!g.archived).length;
-  
-  // Entregas esta semana
-  const hoy = new Date();
-  const inicioSemana = new Date(hoy);
-  inicioSemana.setDate(hoy.getDate() - hoy.getDay());
+  const activas=guias.filter(g=>!esEntregada(g)&&!g.archived);
+  const demoradas=activas.filter(g=>diasEnTransito(g)>8);
+  const retenidas=activas.filter(g=>esRetenida(g.items));
+  const entregadas=guias.filter(g=>esEntregada(g));
+  const tiempos=entregadas.map(g=>diasEnTransito(g)).filter(d=>d>0&&d<60);
+  const prom=tiempos.length?Math.round(tiempos.reduce((a,b)=>a+b,0)/tiempos.length):null;
+  const flo=guias.filter(g=>g.code.toUpperCase().startsWith('FLO')&&!g.archived).length;
+  const buc=guias.filter(g=>g.code.toUpperCase().startsWith('BUC')&&!g.archived).length;
+  const hoy=new Date();
+  const inicioSemana=new Date(hoy);
+  inicioSemana.setDate(hoy.getDate()-hoy.getDay());
   inicioSemana.setHours(0,0,0,0);
-  const entregasSemana = entregadas.filter(g=>{
-    const fe = getFechaEntrega(g);
-    return fe && fe >= inicioSemana;
-  }).length;
-  
-  document.getElementById('hActivas').textContent = activas.length;
-  document.getElementById('hDemoradas').textContent = demoradas.length;
-  document.getElementById('hEntregadas').textContent = entregadas.length;
-  document.getElementById('rActivas').textContent = activas.length;
-  document.getElementById('rDemoradas').textContent = demoradas.length;
-  document.getElementById('rRetenidas').textContent = retenidas.length;
-  document.getElementById('rEntregadas').textContent = entregadas.length;
-  document.getElementById('rPromedio').textContent = prom ? prom+'d' : '—';
-  document.getElementById('rFLO').textContent = flo;
-  document.getElementById('rBUC').textContent = buc;
-  document.getElementById('rSemana').textContent = entregasSemana;
-  
-  const visibles = guias.filter(g=>!g.archived);
-  document.getElementById('emptyState').style.display = visibles.length===0 ? 'block':'none';
-  
-  const porFecha = {};
-  visibles.forEach(g=>{ const k=g.fechaEnvio||'sin-fecha'; if(!porFecha[k])porFecha[k]=[]; porFecha[k].push(g); });
-  const fechas = Object.keys(porFecha).sort((a,b)=>b.localeCompare(a));
-  
-  document.getElementById('listaGuias').innerHTML = fechas.map(fecha=>{
-    const gs = porFecha[fecha];
-    const lbl = fecha==='sin-fecha'?'Sin fecha':formatFechaEnvio(fecha);
+  const entregasSemana=entregadas.filter(g=>{const fe=getFechaEntrega(g);return fe&&fe>=inicioSemana;}).length;
+
+  document.getElementById('hActivas').textContent=activas.length;
+  document.getElementById('hDemoradas').textContent=demoradas.length;
+  document.getElementById('hEntregadas').textContent=entregadas.length;
+  document.getElementById('rActivas').textContent=activas.length;
+  document.getElementById('rDemoradas').textContent=demoradas.length;
+  document.getElementById('rRetenidas').textContent=retenidas.length;
+  document.getElementById('rEntregadas').textContent=entregadas.length;
+  document.getElementById('rPromedio').textContent=prom?prom+'d':'—';
+  document.getElementById('rFLO').textContent=flo;
+  document.getElementById('rBUC').textContent=buc;
+  document.getElementById('rSemana').textContent=entregasSemana;
+
+  const visibles=guias.filter(g=>!g.archived);
+  document.getElementById('emptyState').style.display=visibles.length===0?'block':'none';
+  const porFecha={};
+  visibles.forEach(g=>{const k=g.fechaEnvio||'sin-fecha';if(!porFecha[k])porFecha[k]=[];porFecha[k].push(g);});
+  const fechas=Object.keys(porFecha).sort((a,b)=>b.localeCompare(a));
+  document.getElementById('listaGuias').innerHTML=fechas.map(fecha=>{
+    const gs=porFecha[fecha];
+    const lbl=fecha==='sin-fecha'?'Sin fecha':formatFechaEnvio(fecha);
     return `<div class="fecha-grupo">
       <div class="fecha-label"><span>${lbl}</span><div class="fecha-line"></div><span style="color:#aaa;font-weight:400;">${gs.length} guía${gs.length!==1?'s':''}</span></div>
       ${gs.map(g=>renderGuiaCard(g)).join('')}
@@ -419,38 +569,83 @@ function renderTodo() {
   }).join('');
 }
 
+const ETAPAS = [
+  { icono: '🏭', nombre: 'Atlanta', keywords: ['crear guia','guia creado','guia creado/a'] },
+  { icono: '✈️', nombre: 'Miami', keywords: ['aeropuerto miami','guia ingresada a guia aerea'] },
+  { icono: '🛬', nombre: 'Bogotá', keywords: ['aeropuerto bogota','en aeropuerto bogota','turno de espera'] },
+  { icono: '🛃', nombre: 'Aduana', keywords: ['ingreso bodega bogota','bodega bogota'] },
+  { icono: '📦', nombre: 'Coor. Origen', keywords: ['en terminal origen','terminal origen','recibido por coordinadora'] },
+  { icono: '🏢', nombre: 'Coor. Destino', keywords: ['en terminal destino','terminal destino'] },
+  { icono: '🚚', nombre: 'Reparto', keywords: ['en reparto'] },
+  { icono: '✅', nombre: 'Entregado', keywords: ['entregada','guia entregada'] },
+];
+
+function getEtapaActual(items) {
+  if(!items||!items.length) return 0;
+  const textos = items.map(i=>((i._vstDescription||'')+(i._vstDetail||'')).toLowerCase());
+  let etapaActual = 0;
+  for(let e=0; e<ETAPAS.length; e++) {
+    const encontrada = textos.some(t => ETAPAS[e].keywords.some(k=>t.includes(k)));
+    if(encontrada) etapaActual = e;
+  }
+  return etapaActual;
+}
+
+function renderBarraEtapas(g) {
+  const etapaIdx = getEtapaActual(g.items);
+  let html = '<div class="etapas-barra"><div class="etapas-track">';
+  for(let i=0; i<ETAPAS.length; i++) {
+    const completada = i < etapaIdx;
+    const activa = i === etapaIdx;
+    const clsIcono = completada ? 'completada' : activa ? 'activa' : '';
+    const clsNombre = completada ? 'completada' : activa ? 'activa' : '';
+    html += `<div class="etapa-step">
+      <div class="etapa-icono ${clsIcono}">${completada ? '✓' : ETAPAS[i].icono}</div>
+      <div class="etapa-nombre ${clsNombre}">${ETAPAS[i].nombre}</div>
+    </div>`;
+    if(i < ETAPAS.length-1) {
+      html += `<div class="etapa-linea ${completada?'completada':''}"></div>`;
+    }
+  }
+  html += '</div></div>';
+  return html;
+}
+
 function renderGuiaCard(g) {
-  const dest = getDestino(g.code);
-  const destClass = getDestinoClass(g.code);
-  const prefix = g.code.substring(0,3).toUpperCase();
-  const badge = diasBadge(g);
-  const retenida = esRetenida(g.items);
-  const alerta = esAlerta(g.items);
-  const entregada = esEntregada(g);
-  const statusLabel = entregada ? 'Guía Entregada' : (g.lastStatus || STATUS_LABEL[g.lastStatusId] || 'En proceso');
-  const statusColor = entregada ? 'color:var(--verde)' : retenida ? 'color:var(--rojo-dark)' : alerta ? 'color:var(--rojo)' : 'color:var(--azul)';
-  const items = (g.items||[]).filter(i=>i._vstVisible);
-  const pct = Math.round(items[0]?._vstPercentageValue||0);
-  
-  const timeline = items.map((item,idx)=>{
-    const txt = ((item._vstDescription||'')+(item._vstDetail||'')).toLowerCase();
-    const esRet = RETENCION.some(a=>txt.includes(a));
-    const esAl = ALERTAS.some(a=>txt.includes(a));
+  const dest=getDestino(g.code);
+  const destClass=getDestinoClass(g.code);
+  const prefix=g.code.substring(0,3).toUpperCase();
+  const badge=diasBadge(g);
+  const retenida=esRetenida(g.items);
+  const alerta=esAlerta(g.items);
+  const entregada=esEntregada(g);
+  const statusLabel=entregada?'Guía Entregada':(g.lastStatus||'En proceso');
+  const statusColor=entregada?'color:var(--verde)':retenida?'color:var(--rojo-dark)':alerta?'color:var(--rojo)':'color:var(--azul)';
+  const items=(g.items||[]).filter(i=>i._vstVisible);
+  const pct=Math.round(items[0]?._vstPercentageValue||0);
+  const dias=diasEnTransito(g);
+  const timeline=items.map((item,idx)=>{
+    const txt=((item._vstDescription||'')+(item._vstDetail||'')).toLowerCase();
+    const esRet=RETENCION.some(a=>txt.includes(a));
+    const esAl=ALERTAS.some(a=>txt.includes(a));
     return `<div class="tl-item">
-      <div class="tl-left">
-        <div class="tl-dot ${idx===0?'first':'done'}"></div>
-        ${idx<items.length-1?'<div class="tl-line"></div>':''}
-      </div>
+      <div class="tl-left"><div class="tl-dot ${idx===0?'first':'done'}"></div>${idx<items.length-1?'<div class="tl-line"></div>':''}</div>
       <div class="tl-body">
         <div class="tl-title">${item._vstDetail||''}</div>
         ${item._vstDescription&&item._vstDescription!==item._vstDetail?`<div class="tl-desc">${item._vstDescription}</div>`:''}
         ${formatDate(item._vstRealDate)?`<div class="tl-date">🕐 ${formatDate(item._vstRealDate)}</div>`:''}
         ${esRet?'<div class="tl-retenida">🚨 RETENIDA — Revisar urgente con iCargo</div>':''}
-        ${!esRet && esAl?'<div class="tl-alerta">⚠️ Posible demora — revisa con iCargo</div>':''}
+        ${!esRet&&esAl?'<div class="tl-alerta">⚠️ Posible demora — revisa con iCargo</div>':''}
       </div>
     </div>`;
   }).join('');
-  
+
+  const metaInfo = (g.peso||g.costo) ? `
+    ${g.peso?`⚖️ ${g.peso} lbs`:''}
+    ${g.peso&&g.costo?' · ':''}
+    ${g.costo?`💵 $${g.costo.toFixed(2)}`:''}
+  ` : '';
+
   return `<div class="guia-card${retenida?' retenida':alerta?' alerta':''}" id="card-${g.code}" onclick="toggleDetalle('${g.code}')">
     <div class="guia-header">
       <div class="dest-badge ${destClass}">${prefix}</div>
@@ -458,21 +653,27 @@ function renderGuiaCard(g) {
         <div class="guia-code">${g.code}</div>
         <div class="guia-dest">${dest||'Destino desconocido'}</div>
         <div class="guia-status" style="${statusColor}">${statusLabel}</div>
+        ${metaInfo?`<div class="guia-meta">${metaInfo}</div>`:''}
       </div>
       <div class="guia-right">
         <span class="dias-badge ${badge.cls}">${badge.txt}</span>
-        ${!entregada && retenida?'<span class="retenida-chip">🚨 RETENIDA</span>':''}
-        ${!entregada && !retenida && alerta?'<span class="alerta-chip">⚠️ Alerta</span>':''}
+        ${!entregada&&retenida?'<span class="retenida-chip">🚨 RETENIDA</span>':''}
+        ${!entregada&&!retenida&&alerta?'<span class="alerta-chip">⚠️ Alerta</span>':''}
       </div>
     </div>
     <div class="guia-detalle" id="det-${g.code}" onclick="event.stopPropagation()">
-      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      ${renderBarraEtapas(g)}
       <div class="detalle-actions">
         <button class="btn-sm azul" id="btn-refresh-${g.code}" onclick="actualizarGuia('${g.code}')">↻ Actualizar</button>
         <button class="btn-sm" onclick="toggleNota('${g.code}')">📝 Nota</button>
         <button class="btn-sm verde" onclick="archivarGuia('${g.code}')">${g.archived?'↩ Restaurar':'✓ Marcar entregada'}</button>
         <button class="btn-sm rojo" onclick="eliminarGuia('${g.code}')">🗑 Eliminar</button>
-        <span style="margin-left:auto;font-size:11px;color:#aaa;">📅 ${diasEnTransito(g)} días · Act: ${formatDate(g.lastCheck)||'—'}</span>
+        <span style="margin-left:auto;font-size:11px;color:#aaa;">📅 ${dias} días · Act: ${formatDate(g.lastCheck)||'—'}</span>
+      </div>
+      <div class="meta-edit">
+        <input class="meta-input" type="number" id="meta-peso-${g.code}" placeholder="Peso (lbs)" value="${g.peso||''}" step="0.1" min="0" onclick="event.stopPropagation()"/>
+        <input class="meta-input" type="number" id="meta-costo-${g.code}" placeholder="Costo ($)" value="${g.costo||''}" step="0.01" min="0" onclick="event.stopPropagation()"/>
+        <button class="btn-sm azul" onclick="event.stopPropagation();guardarMeta('${g.code}')">💾 Guardar</button>
       </div>
       ${g.note?`<div class="nota-guardada visible" id="nota-saved-${g.code}">📝 ${g.note}</div>`:`<div class="nota-guardada" id="nota-saved-${g.code}"></div>`}
       <textarea class="nota-area" id="nota-area-${g.code}" rows="2" placeholder="Ej: Cliente avisado, esperando pago aduana...">${g.note||''}</textarea>
@@ -483,16 +684,141 @@ function renderGuiaCard(g) {
   </div>`;
 }
 
-document.addEventListener('click', e => {
-  if(e.target.classList.contains('nota-area')) {
-    const id = e.target.id.replace('nota-area-','');
-    const btn = document.getElementById('btn-nota-'+id);
+// ── DASHBOARD ──
+function getEtapaFecha(items, keywords) {
+  if(!items||!items.length) return null;
+  const ev = items.find(i => {
+    const t = ((i._vstDescription||'')+(i._vstDetail||'')).toLowerCase();
+    return keywords.some(k=>t.includes(k));
+  });
+  return ev ? new Date(ev._vstRealDate) : null;
+}
+
+function diffDias(a, b) {
+  if(!a||!b||isNaN(a.getTime())||isNaN(b.getTime())) return null;
+  const d = Math.floor((b.getTime()-a.getTime())/86400000);
+  return d>=0 ? d : null;
+}
+
+function renderDashboard() {
+  const entregadas = guias.filter(g=>esEntregada(g)&&g.items&&g.items.length>0);
+  const conCosto = guias.filter(g=>g.costo&&g.costo>0);
+  const conPeso = guias.filter(g=>g.peso&&g.peso>0);
+  const total = guias.filter(g=>!g.archived).length;
+
+  // Financiero
+  const totalUSD = conCosto.reduce((s,g)=>s+(g.costo||0),0);
+  const totalPeso = conPeso.reduce((s,g)=>s+(g.peso||0),0);
+  const promCaja = conCosto.length ? totalUSD/conCosto.length : null;
+  const promLb = (conCosto.length&&conPeso.length) ? totalUSD/totalPeso : null;
+
+  document.getElementById('dTotalUSD').textContent = totalUSD>0 ? fmtUSD(totalUSD) : '—';
+  document.getElementById('dTotalCOP').textContent = (totalUSD>0&&trmActual) ? fmtCOP(totalUSD*trmActual) : '— COP';
+  document.getElementById('dPromCaja').textContent = promCaja ? fmtUSD(promCaja) : '—';
+  document.getElementById('dPromLb').textContent = promLb ? fmtUSD(promLb) : '—';
+  document.getElementById('dPesoTotal').textContent = totalPeso>0 ? totalPeso.toFixed(1)+' lbs' : '—';
+
+  // Etapas
+  const etapas = [
+    { nombre: '✈️ Miami → Bogotá', kwInicio: ['crear guia','guia creado'], kwFin: ['aeropuerto bogota','en aeropuerto bogota'] },
+    { nombre: '🛃 Aduana Bogotá', kwInicio: ['aeropuerto bogota','en aeropuerto bogota'], kwFin: ['ingreso bodega bogota','bodega bogota'] },
+    { nombre: '🏭 Bodega → Coordinadora', kwInicio: ['ingreso bodega bogota','bodega bogota'], kwFin: ['recibido por coordinadora'] },
+    { nombre: '🚚 Coordinadora → Entrega', kwInicio: ['recibido por coordinadora'], kwFin: ['entregada'] },
+  ];
+
+  const etapaProms = etapas.map(et => {
+    const vals = entregadas.map(g=>{
+      const items = [...(g.items||[])].reverse();
+      const ini = getEtapaFecha(items, et.kwInicio);
+      const fin = getEtapaFecha(items, et.kwFin);
+      return diffDias(ini, fin);
+    }).filter(v=>v!==null&&v>=0&&v<30);
+    const avg = vals.length ? Math.round(vals.reduce((a,b)=>a+b,0)/vals.length) : null;
+    return { ...et, avg, n: vals.length };
+  });
+
+  document.getElementById('etapasContainer').innerHTML = etapaProms.map(et=>`
+    <div class="etapa-row">
+      <div>
+        <div class="etapa-nombre">${et.nombre}</div>
+        <div class="etapa-sub">${et.n} guías calculadas</div>
+      </div>
+      <div style="text-align:right">
+        <div class="etapa-dias">${et.avg!==null?et.avg+' días':'—'}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Envíos por mes
+  const porMes = {};
+  guias.filter(g=>!g.archived&&g.fechaEnvio).forEach(g=>{
+    const [y,m] = g.fechaEnvio.split('-');
+    const k = `${y}-${m}`;
+    if(!porMes[k]) porMes[k] = { label: `${MESES[parseInt(m)-1]} ${y}`, count:0, costo:0 };
+    porMes[k].count++;
+    if(g.costo) porMes[k].costo += g.costo;
+  });
+  const meses = Object.keys(porMes).sort().slice(-12);
+  const maxCount = Math.max(...meses.map(k=>porMes[k].count),1);
+  const maxCosto = Math.max(...meses.map(k=>porMes[k].costo),1);
+
+  document.getElementById('mesBarrasContainer').innerHTML = meses.map(k=>{
+    const m = porMes[k];
+    return `<div class="mes-row">
+      <div class="mes-label">${m.label}</div>
+      <div class="mes-barra-bg"><div class="mes-barra-fill" style="width:${Math.round(m.count/maxCount*100)}%"></div></div>
+      <div class="mes-valor">${m.count}</div>
+    </div>`;
+  }).join('') || '<p style="color:var(--texto2);font-size:13px;">Sin datos</p>';
+
+  document.getElementById('mesGastoContainer').innerHTML = meses.filter(k=>porMes[k].costo>0).map(k=>{
+    const m = porMes[k];
+    return `<div class="mes-row">
+      <div class="mes-label">${m.label}</div>
+      <div class="mes-barra-bg"><div class="mes-barra-fill" style="width:${Math.round(m.costo/maxCosto*100)}%;background:var(--verde)"></div></div>
+      <div class="mes-valor" style="width:60px;font-size:11px;">${fmtUSD(m.costo)}</div>
+    </div>`;
+  }).join('') || '<p style="color:var(--texto2);font-size:13px;">Agrega el costo a las guías para ver esta gráfica</p>';
+
+  // Récords
+  const tiempos = entregadas.map(g=>({code:g.code,dias:diasEnTransito(g)})).filter(g=>g.dias>0&&g.dias<60);
+  tiempos.sort((a,b)=>a.dias-b.dias);
+  const masRapida = tiempos[0];
+  const masLenta = tiempos[tiempos.length-1];
+  const mesMasEnvios = meses.sort((a,b)=>porMes[b].count-porMes[a].count)[0];
+  const mesMasCosto = meses.sort((a,b)=>porMes[b].costo-porMes[a].costo)[0];
+
+  document.getElementById('recordsContainer').innerHTML = `
+    <div class="record-row"><div class="record-label">🏎️ Guía más rápida</div><div class="record-value">${masRapida?masRapida.code+' ('+masRapida.dias+' días)':'—'}</div></div>
+    <div class="record-row"><div class="record-label">🐢 Guía más lenta</div><div class="record-value">${masLenta?masLenta.code+' ('+masLenta.dias+' días)':'—'}</div></div>
+    <div class="record-row"><div class="record-label">📦 Mes con más envíos</div><div class="record-value">${mesMasEnvios?porMes[mesMasEnvios].label+' ('+porMes[mesMasEnvios].count+')':'—'}</div></div>
+    <div class="record-row"><div class="record-label">💰 Mes mayor gasto</div><div class="record-value">${mesMasCosto&&porMes[mesMasCosto].costo>0?porMes[mesMasCosto].label+' ('+fmtUSD(porMes[mesMasCosto].costo)+')':'—'}</div></div>
+    <div class="record-row"><div class="record-label">📊 Total guías históricas</div><div class="record-value">${guias.length}</div></div>
+  `;
+
+  // Destinos
+  const floCount = guias.filter(g=>g.code.toUpperCase().startsWith('FLO')&&!g.archived).length;
+  const bucCount = guias.filter(g=>g.code.toUpperCase().startsWith('BUC')&&!g.archived).length;
+  document.getElementById('dFLO').textContent = floCount;
+  document.getElementById('dBUC').textContent = bucCount;
+  document.getElementById('dFLOpct').textContent = total>0?Math.round(floCount/total*100)+'% del total':'—';
+  document.getElementById('dBUCpct').textContent = total>0?Math.round(bucCount/total*100)+'% del total':'—';
+}
+
+// ── EVENTOS ──
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('nota-area')){
+    const id=e.target.id.replace('nota-area-','');
+    const btn=document.getElementById('btn-nota-'+id);
     if(btn) btn.style.display='flex';
   }
 });
 document.getElementById('inputCodigo').addEventListener('keydown',e=>{if(e.key==='Enter')agregarGuia();});
-document.getElementById('inputFecha').value = new Date().toISOString().split('T')[0];
+document.getElementById('inputFecha').value=new Date().toISOString().split('T')[0];
+
+// ── INIT ──
 cargarGuias();
+fetchTRM();
 </script>
 </body>
 </html>
